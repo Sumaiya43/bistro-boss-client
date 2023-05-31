@@ -1,10 +1,15 @@
-import React from 'react';
+
 import { Helmet } from 'react-helmet-async';
 import Cover from './components/Cover';
 import menuImg from '../assets/menu/soup-bg.jpg'
-import PopularMenu from './Home/PopularMenu';
+
+import useMenu from '../Hooks/useMenu';
 
 const Menu = () => {
+
+    const [menu] = useMenu();
+    
+    
     return (
         <div>
             <Helmet>
@@ -14,7 +19,7 @@ const Menu = () => {
             img={menuImg}
             title="Out Menu"
             ></Cover>
-            <PopularMenu></PopularMenu>
+            
         </div>
     );
 };
