@@ -1,11 +1,30 @@
 import { Link } from "react-router-dom";
+import { FaShoppingCart} from 'react-icons/fa'
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+
+import Swal from 'sweetalert2'
 
 
 const Navbar = () => {
+    const {user, logOut} = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logOut()
+        .then(()=> {})
+        .catch(error => console.log(error))
+    }
     const navOptions = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="menu">Our Menu</Link></li>
-        <li><Link to="order">Order Food</Link></li>
+        <li><Link to="order/salad">Order Food</Link></li>
+        {
+            user ? <li><Link onClick={handleLogout} >LogOut</Link></li> : <li><Link to='/login'>LogIn</Link></li>
+        }
+        <li><Link><button className="btn gap-3">
+            <FaShoppingCart></FaShoppingCart>
+            <div className="badge badge-secondary">+0</div>
+        </button></Link></li>
     </>
     return (
         <div>
@@ -25,13 +44,13 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                       {
-                        navOptions
-                       }
+                        {
+                            navOptions
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Sign In</a>
+                    <a className="btn">Get Started</a>
                 </div>
             </div>
         </div>
