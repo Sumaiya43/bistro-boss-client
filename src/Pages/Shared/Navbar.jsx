@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart} from 'react-icons/fa'
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useCart from "../../Hooks/useCart";
 
-import Swal from 'sweetalert2'
 
 
 const Navbar = () => {
     const {user, logOut} = useContext(AuthContext)
+
+    const [cart] = useCart()
 
     const handleLogout = () => {
         logOut()
@@ -21,9 +23,9 @@ const Navbar = () => {
         {
             user ? <li><Link onClick={handleLogout} >LogOut</Link></li> : <li><Link to='/login'>LogIn</Link></li>
         }
-        <li><Link><button className="btn gap-3">
+        <li><Link to='dashboard/mycart'><button className="btn gap-3">
             <FaShoppingCart></FaShoppingCart>
-            <div className="badge badge-secondary">+0</div>
+            <div className="badge badge-secondary">+{cart?.length || 0}</div>
         </button></Link></li>
     </>
     return (
